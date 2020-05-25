@@ -18,15 +18,15 @@ Este documento fue elaborado con **rmarkdown_2.1** y compilado con **knitr_1.28*
 Los enlaces están actualizados al **`r Sys.Date()`**.
 
 ## Introducción
-Si acabas de instalar **Ubuntu 18.04 LTS** y necesitas tener listo RStudio para comenzar a trabajar, utiliza esta pequeña guía para que no des tantas vueltas en la web. Sólo tienes que ejecutar linea a linea los bloques de código que te mostraré a continuación y en poco tiempo ya tendrás todo el software instalado.
+Si acabas de instalar **Ubuntu 18.04** y necesitas tener listo RStudio para comenzar a trabajar, utiliza esta pequeña guía para que no des tantas vueltas en la web. Sólo tienes que ejecutar linea a linea los bloques de código que te mostraré a continuación y en poco tiempo ya tendrás todo el software instalado.
 
 ## Instalando R {.tabset .tabset-fade}
 ### R 3.6
 
 ```bash
 # Puedes omitir la primera linea si lo deseas
-sudo printf "# Repositorio R 3.6 Ubuntu Bionic" >> /etc/apt/sources.list
-sudo printf "deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/" >> /etc/apt/sources.list
+sudo bash -c "echo '# Repositorio R 3.6 Ubuntu Bionic' >> /etc/apt/sources.list"
+sudo bash -c "echo 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/' >> /etc/apt/sources.list"
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
 sudo apt-get update
 sudo apt-get install r-base r-base-dev
@@ -35,8 +35,8 @@ sudo apt-get install r-base r-base-dev
 
 ```bash
 # Puedes omitir la primera linea si lo deseas
-sudo printf "# Repositorio R 4.0 Ubuntu Bionic" >> /etc/apt/sources.list 
-sudo printf "deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran40/" >> /etc/apt/sources.list
+sudo bash -c "echo '# Repositorio R 4.0 Ubuntu Bionic' >> /etc/apt/sources.list"
+sudo bash -c "echo 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran40/' >> /etc/apt/sources.list"
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
 sudo apt-get update
 sudo apt-get install r-base r-base-dev
@@ -45,18 +45,42 @@ sudo apt-get install r-base r-base-dev
 Verifica que la instalación se realizó correctamente ejecutando `R --version` en el terminal.
 
 ## Instalando RStudio Desktop
-Las siguientes lineas de código instalaran RStudio Desktop 1.2.5042 en tu OS.
+Las siguientes lineas de código instalaran la versión adecuada de RStudio Desktop para tu sistema operativo.  
+
+Las versiones más recientes de RStudio sólo están disponible para sistemas operativos con arquitectura de 64-bits, no obstante todavía puedes instalar una versión vieja de RStudio compatible con sistemas de 32-bits.
+
+### ¿Cómo se cuál es la arquitectura de mi sistema operativo?
+Sólo ejecuta el comando `uname -i` en el terminal, si el resultado de este comando es "x86_64" entonces tu sistema operativo es de 64-bits. De lo contrario, tu sistema es de 32-bits.
+
+## {.tabset .tabset-fade}
+### RStudio Desktop para 32-bits
+El siguiente bloque de código instalara RStudio Desktop 1.1.463 en tu sistema operativo.
 
 ```bash
-# El primer comando es importante para que el paquete descargado quede en un lugar conocido
-cd ~/Downloads
+cd ~/Downloads  # Para que el paquete se descargue en un lugar conocido
+nombre_archivo="rstudio-1.1.463-i386.deb"
+URL="http://download1.rstudio.org/$nombre_archivo"
+wget -nv --show-progress $URL
+
+sudo chmod +x "$nombre_archivo"
+sudo dpkg -i "$nombre_archivo"
+sudo apt-get -f install  # Para satisfacer las dependencias y completar la instalación
+```
+
+### RStudio Desktop para 64-bits
+El siguiente bloque de código instalara RStudio Desktop 1.2.5042 en tu sistema operativo.
+
+```bash
+cd ~/Downloads  # Para que el paquete se descargue en un lugar conocido
 nombre_archivo="rstudio-1.2.5042-amd64.deb"
 URL="https://download1.rstudio.org/desktop/bionic/amd64/$nombre_archivo"
 wget -nv --show-progress $URL
 
 sudo chmod +x "$nombre_archivo"
 sudo dpkg -i "$nombre_archivo"
-```
+sudo apt-get -f install  # Para satisfacer las dependencias y completar la instalación
 
+```
+#
 ### ¡ATENCIÓN! 
 Si detienes la descarga, un archivo con el nombre "rstudio-1.2.5042-amd64.deb" se creará en el directorio de trabajo actual (~/Downloads). Esto puede llegar a confundirte ya que la próxima vez que intentes descargar el paquete, este se guardará como "rstudio-1.2.5042-amd64.deb**1**" para evitar conflicto con el archivo que ya existe.

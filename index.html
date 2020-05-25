@@ -438,19 +438,19 @@ summary {
 <div id="preambulo" class="section level2">
 <h2>Preambulo</h2>
 <p>Este documento fue elaborado con <strong>rmarkdown_2.1</strong> y compilado con <strong>knitr_1.28</strong> en <strong>RStudio Desktop 1.2.5033 “Orange Blossom”</strong>.</p>
-<p>Los enlaces están actualizados al <strong>2020-05-20</strong>.</p>
+<p>Los enlaces están actualizados al <strong>2020-05-24</strong>.</p>
 </div>
 <div id="introducción" class="section level2">
 <h2>Introducción</h2>
-<p>Si acabas de instalar <strong>Ubuntu 18.04 LTS</strong> y necesitas tener listo RStudio para comenzar a trabajar, utiliza esta pequeña guía para que no des tantas vueltas en la web. Sólo tienes que ejecutar linea a linea los bloques de código que te mostraré a continuación y en poco tiempo ya tendrás todo el software instalado.</p>
+<p>Si acabas de instalar <strong>Ubuntu 18.04</strong> y necesitas tener listo RStudio para comenzar a trabajar, utiliza esta pequeña guía para que no des tantas vueltas en la web. Sólo tienes que ejecutar linea a linea los bloques de código que te mostraré a continuación y en poco tiempo ya tendrás todo el software instalado.</p>
 </div>
 <div id="instalando-r" class="section level2 tabset tabset-fade">
 <h2>Instalando R</h2>
 <div id="r-3.6" class="section level3">
 <h3>R 3.6</h3>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># Puedes omitir la primera linea si lo deseas</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="fu">sudo</span> printf <span class="st">&quot;# Repositorio R 3.6 Ubuntu Bionic&quot;</span> <span class="op">&gt;&gt;</span> /etc/apt/sources.list</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="fu">sudo</span> printf <span class="st">&quot;deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/&quot;</span> <span class="op">&gt;&gt;</span> /etc/apt/sources.list</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="fu">sudo</span> bash -c <span class="st">&quot;echo '# Repositorio R 3.6 Ubuntu Bionic' &gt;&gt; /etc/apt/sources.list&quot;</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="fu">sudo</span> bash -c <span class="st">&quot;echo 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/' &gt;&gt; /etc/apt/sources.list&quot;</span></a>
 <a class="sourceLine" id="cb1-4" data-line-number="4"><span class="fu">sudo</span> apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9</a>
 <a class="sourceLine" id="cb1-5" data-line-number="5"><span class="fu">sudo</span> apt-get update</a>
 <a class="sourceLine" id="cb1-6" data-line-number="6"><span class="fu">sudo</span> apt-get install r-base r-base-dev</a></code></pre></div>
@@ -458,8 +458,8 @@ summary {
 <div id="r-4.0" class="section level3">
 <h3>R 4.0</h3>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># Puedes omitir la primera linea si lo deseas</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="fu">sudo</span> printf <span class="st">&quot;# Repositorio R 4.0 Ubuntu Bionic&quot;</span> <span class="op">&gt;&gt;</span> /etc/apt/sources.list </a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="fu">sudo</span> printf <span class="st">&quot;deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran40/&quot;</span> <span class="op">&gt;&gt;</span> /etc/apt/sources.list</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="fu">sudo</span> bash -c <span class="st">&quot;echo '# Repositorio R 4.0 Ubuntu Bionic' &gt;&gt; /etc/apt/sources.list&quot;</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="fu">sudo</span> bash -c <span class="st">&quot;echo 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran40/' &gt;&gt; /etc/apt/sources.list&quot;</span></a>
 <a class="sourceLine" id="cb2-4" data-line-number="4"><span class="fu">sudo</span> apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9</a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"><span class="fu">sudo</span> apt-get update</a>
 <a class="sourceLine" id="cb2-6" data-line-number="6"><span class="fu">sudo</span> apt-get install r-base r-base-dev</a></code></pre></div>
@@ -470,15 +470,39 @@ summary {
 <p>Verifica que la instalación se realizó correctamente ejecutando <code>R --version</code> en el terminal.</p>
 <div id="instalando-rstudio-desktop" class="section level2">
 <h2>Instalando RStudio Desktop</h2>
-<p>Las siguientes lineas de código instalaran RStudio Desktop 1.2.5042 en tu OS.</p>
+<p>Las siguientes lineas de código instalaran la versión adecuada de RStudio Desktop para tu sistema operativo.</p>
+<p>Las versiones más recientes de RStudio sólo están disponible para sistemas operativos con arquitectura de 64-bits, no obstante todavía puedes instalar una versión vieja de RStudio compatible con sistemas de 32-bits.</p>
+<div id="cómo-se-cuál-es-la-arquitectura-de-mi-sistema-operativo" class="section level3">
+<h3>¿Cómo se cuál es la arquitectura de mi sistema operativo?</h3>
+<p>Sólo ejecuta el comando <code>uname -i</code> en el terminal, si el resultado de este comando es “x86_64” entonces tu sistema operativo es de 64-bits. De lo contrario, tu sistema es de 32-bits.</p>
+</div>
+</div>
+<div id="section-1" class="section level2 tabset tabset-fade">
+<h2></h2>
+<div id="rstudio-desktop-para-32-bits" class="section level3">
+<h3>RStudio Desktop para 32-bits</h3>
+<p>El siguiente bloque de código instalara RStudio Desktop 1.1.463 en tu sistema operativo.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># El primer comando es importante para que el paquete descargado quede en un lugar conocido</span></a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="bu">cd</span> ~/Downloads</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="va">nombre_archivo=</span><span class="st">&quot;rstudio-1.2.5042-amd64.deb&quot;</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="va">URL=</span><span class="st">&quot;https://download1.rstudio.org/desktop/bionic/amd64/</span><span class="va">$nombre_archivo</span><span class="st">&quot;</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="va">nombre_archivo=</span><span class="st">&quot;rstudio-1.1.463-i386.deb&quot;</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="va">URL=</span><span class="st">&quot;http://download1.rstudio.org/</span><span class="va">$nombre_archivo</span><span class="st">&quot;</span></a>
 <a class="sourceLine" id="cb3-5" data-line-number="5"><span class="fu">wget</span> -nv --show-progress <span class="va">$URL</span></a>
 <a class="sourceLine" id="cb3-6" data-line-number="6"></a>
 <a class="sourceLine" id="cb3-7" data-line-number="7"><span class="fu">sudo</span> chmod +x <span class="st">&quot;</span><span class="va">$nombre_archivo</span><span class="st">&quot;</span></a>
 <a class="sourceLine" id="cb3-8" data-line-number="8"><span class="fu">sudo</span> dpkg -i <span class="st">&quot;</span><span class="va">$nombre_archivo</span><span class="st">&quot;</span></a></code></pre></div>
+</div>
+<div id="rstudio-desktop-para-64-bits" class="section level3">
+<h3>RStudio Desktop para 64-bits</h3>
+<p>El siguiente bloque de código instalara RStudio Desktop 1.2.5042 en tu sistema operativo.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># El primer comando es importante para que el paquete descargado quede en un lugar conocido</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="bu">cd</span> ~/Downloads</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="va">nombre_archivo=</span><span class="st">&quot;rstudio-1.2.5042-amd64.deb&quot;</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="va">URL=</span><span class="st">&quot;https://download1.rstudio.org/desktop/bionic/amd64/</span><span class="va">$nombre_archivo</span><span class="st">&quot;</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="fu">wget</span> -nv --show-progress <span class="va">$URL</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="fu">sudo</span> chmod +x <span class="st">&quot;</span><span class="va">$nombre_archivo</span><span class="st">&quot;</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="fu">sudo</span> dpkg -i <span class="st">&quot;</span><span class="va">$nombre_archivo</span><span class="st">&quot;</span></a></code></pre></div>
+</div>
 <div id="atención" class="section level3">
 <h3>¡ATENCIÓN!</h3>
 <p>Si detienes la descarga, un archivo con el nombre “rstudio-1.2.5042-amd64.deb” se creará en el directorio de trabajo actual (~/Downloads). Esto puede llegar a confundirte ya que la próxima vez que intentes descargar el paquete, este se guardará como “rstudio-1.2.5042-amd64.deb<strong>1</strong>” para evitar conflicto con el archivo que ya existe.</p>
